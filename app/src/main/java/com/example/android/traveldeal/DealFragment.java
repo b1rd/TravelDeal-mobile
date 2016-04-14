@@ -17,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,16 +97,45 @@ public class DealFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchDealTask extends AsyncTask<Void, Void, Void>{
+    public class FetchDealTask extends AsyncTask<String, Void, String[]>{
         private final String LOG_TAG = FetchDealTask.class.getSimpleName();
 
-//        private void getDealDataFromJson(String dealJsonStr)
-//            throws JSONException{
-//            JSONObject dealJson = new JSONObject(dealJsonStr);
-//            System.out.print(dealJson.length());
-//        }
+        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+                throws JSONException {
+
+            JSONArray dealArray = new JSONArray(forecastJsonStr);
+//            JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
+
+            // OWM returns daily forecasts based upon the local time of the city that is being
+            // asked for, which means that we need to know the GMT offset to translate this data
+            // properly.
+
+            // Since this data is also sent in-order and the first day is always the
+            // current day, we're going to take advantage of that to get a nice
+            // normalized UTC date for all of our weather.
+
+            String[] resultStrs = new String[numDays];
+            for(int i = 0; i < numDays; i++) {
+                // For now, using the format "Day, description, hi/low"
+                String day;
+                String description;
+                String highAndLow;
+
+                // Get the JSON object representing the day
+                JSONObject deal = dealArray.getJSONObject(i);
+
+                resultStrs[i] = deal.getString("title");//+"\n"+deal.getString("body");
+            }
+
+            for (String s : resultStrs) {
+                Log.v(LOG_TAG, "Forecast entry: " + s);
+            }
+            return resultStrs;
+
+        }
+
         @Override
-        protected Void doInBackground(Void... params){
+        protected String[] doInBackground(String... params){
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
@@ -149,8 +182,24 @@ public class DealFragment extends Fragment {
                     }
                 }
             }
-            
+            try {
+                return getWeatherDataFromJson(dealJsonStr, 5);
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.getMessage(), e);
+                e.printStackTrace();
+            }
+
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String[] result){
+            if (result != null){
+                mDealAdapter.clear();
+                for (String dealStr : result){
+                    mDealAdapter.add(dealStr);
+                }
+            }
         }
     }
 }
