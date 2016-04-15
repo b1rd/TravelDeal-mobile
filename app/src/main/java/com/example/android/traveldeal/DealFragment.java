@@ -5,8 +5,10 @@ package com.example.android.traveldeal;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,8 +32,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DealFragment extends Fragment {
 
@@ -55,8 +55,7 @@ public class DealFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if (id == R.id.action_refresh){
-            FetchDealTask dealTask = new FetchDealTask();
-            dealTask.execute();
+            updateDeals();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -68,18 +67,6 @@ public class DealFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Create some dummy data for the ListView.  Here's a sample weekly forecast
-        String[] data = {
-                "Победа",
-                "Сапсан",
-                "WizzAir",
-                "AirBaltic",
-                "RyanAir",
-                "Аэрофлот"
-        };
-        List<String> weekDeal = new ArrayList<String>(Arrays.asList(data));
-
-
         // Now that we have some dummy forecast data, create an ArrayAdapter.
         // The ArrayAdapter will take data from a source (like our dummy forecast) and
         // use it to populate the ListView it's attached to.
@@ -88,7 +75,7 @@ public class DealFragment extends Fragment {
                         getActivity(), // The current context (this activity)
                         R.layout.list_item_deal, // The name of the layout ID.
                         R.id.list_item_deal_textview, // The ID of the textview to populate.
-                        weekDeal);
+                        new ArrayList<String>());
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -107,6 +94,20 @@ public class DealFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    public void updateDeals(){
+        FetchDealTask dealTask = new FetchDealTask();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+        dealTask.execute(location);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        updateDeals();
     }
 
     public class FetchDealTask extends AsyncTask<String, Void, String[]>{
