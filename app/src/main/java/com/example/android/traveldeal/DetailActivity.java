@@ -51,7 +51,7 @@ public class DetailActivity extends ActionBarActivity {
 
         private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
-        private static final String TRAVEL_DEAL_HASHTAG = " #SunshineApp";
+        private static final String TRAVEL_DEAL_HASHTAG = " #TravelDealApp";
         private String mDealStr;
 
         public DetailFragment() {

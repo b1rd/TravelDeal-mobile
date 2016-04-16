@@ -2,10 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="displayOptions">useLogo|showHome</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/dark_primary_color</item>
     </style>
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
+    <!--<style name="DealTheme" parent="Theme.AppCompat.NoActionBar">-->
+        <!--<item name="android:actionBarStyle">@style/ActionBar.Solid.TravelDeal.NoTitle</item>-->
+    <!--</style>-->
+
+    <!--<style name="ActionBar.Solid.TravelDeal.NoTitle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">-->
+        <!--<item name="logo">@drawable/ic_launcher</item>-->
+    <!--</style>-->
 
 </resources>

@@ -196,7 +196,7 @@ public class DealFragment extends Fragment {
                 }
             }
             try {
-                return getWeatherDataFromJson(dealJsonStr, 5);
+                return getWeatherDataFromJson(dealJsonStr, 10);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
