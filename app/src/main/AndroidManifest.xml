@@ -19,6 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name="LoginScreen" android:label="@string/app_name"-->
+            <!--android:noHistory="true" android:excludeFromRecents="true">-->
+        <!--</activity>-->
         <activity android:name=".MainActivity" />
         <activity
             android:name=".DetailActivity"
@@ -30,6 +33,13 @@
         </activity>
         <activity android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.traveldeal.MainActivity" />
+        </activity>
+        <activity android:name=".SignInActivity"
+            android:label="@string/sign_in"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
