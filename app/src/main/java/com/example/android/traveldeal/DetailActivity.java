@@ -67,8 +67,11 @@ public class DetailActivity extends ActionBarActivity {
             Intent intent = getActivity().getIntent();
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
                 mDealStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+                String[] parts = mDealStr.split("\n");
                 ((TextView) rootView.findViewById(R.id.detail_text))
-                        .setText(mDealStr);
+                        .setText(parts[0]);
+                ((TextView) rootView.findViewById(R.id.details))
+                        .setText(parts[1]);
             }
 
             return rootView;

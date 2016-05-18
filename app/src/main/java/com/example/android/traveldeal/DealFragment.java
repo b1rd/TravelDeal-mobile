@@ -117,10 +117,13 @@ public class DealFragment extends Fragment {
 
         private final String LOG_TAG = FetchDealTask.class.getSimpleName();
 
-        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+        private String[] getDealDataFromJson(String dealJsonStr, int numDays)
                 throws JSONException {
+            JSONObject dealsObject = new JSONObject(dealJsonStr);
 
-            JSONArray dealArray = new JSONArray(forecastJsonStr);
+            //Get the instance of JSONArray that contains JSONObjects
+            JSONArray dealArray = dealsObject.optJSONArray("deals");
+//            JSONArray dealArray = new JSONArray(dealJsonStr);
 //            JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
             // OWM returns daily forecasts based upon the local time of the city that is being
@@ -133,15 +136,9 @@ public class DealFragment extends Fragment {
 
             String[] resultStrs = new String[numDays];
             for(int i = 0; i < numDays; i++) {
-                // For now, using the format "Day, description, hi/low"
-                String day;
-                String description;
-                String highAndLow;
-
-                // Get the JSON object representing the day
                 JSONObject deal = dealArray.getJSONObject(i);
 
-                resultStrs[i] = deal.getString("title")+"\n"+deal.getString("body");
+                resultStrs[i] = deal.getString("title")+"\n"+deal.getString("description");
             }
 
             for (String s : resultStrs) {
@@ -169,7 +166,7 @@ public class DealFragment extends Fragment {
             String dealJsonStr = null;
 
             try {
-                String baseUrl = "http://jsonplaceholder.typicode.com/posts";
+                String baseUrl = "http://ivanledyaev.com:5000/deals";
                 URL url = new URL(baseUrl);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -210,7 +207,7 @@ public class DealFragment extends Fragment {
                 }
             }
             try {
-                return getWeatherDataFromJson(dealJsonStr, 10);
+                return getDealDataFromJson(dealJsonStr, 7);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
