@@ -9,22 +9,17 @@ import android.view.View;
 /**
  * Created by b1rd on 15.04.16.
  */
-public class SignInActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_in);
-        View backgroundImage = findViewById(R.id.signin_screen);
+        setContentView(R.layout.sign_up);
+        View backgroundImage = findViewById(R.id.signup_screen);
         Drawable background = backgroundImage.getBackground();
         background.setAlpha(100);
     }
-    public void buttonSignIn(View v){
+    public void buttonSignedUp(View v){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void buttonSignUp(View v){
-        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivity(intent);
     }
 }

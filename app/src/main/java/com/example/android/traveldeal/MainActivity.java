@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.container, new DealFragment())
                     .commit();
         }
+
     }
 
 

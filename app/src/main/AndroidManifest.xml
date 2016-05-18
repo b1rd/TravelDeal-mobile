@@ -45,6 +45,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.traveldeal.MainActivity" />
         </activity>
+        <activity android:name=".SignUpActivity"
+            android:label="@string/sign_up"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.traveldeal.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

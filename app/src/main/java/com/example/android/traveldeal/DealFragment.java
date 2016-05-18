@@ -4,6 +4,7 @@ package com.example.android.traveldeal;
  * Created by b1rd on 10.04.16.
  */
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 public class DealFragment extends Fragment {
 
     ArrayAdapter<String> mDealAdapter;
+    private ProgressDialog progressDialog;
 
     public DealFragment() {
     }
@@ -111,6 +113,8 @@ public class DealFragment extends Fragment {
     }
 
     public class FetchDealTask extends AsyncTask<String, Void, String[]>{
+        ProgressDialog progressDialog;
+
         private final String LOG_TAG = FetchDealTask.class.getSimpleName();
 
         private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
@@ -137,7 +141,7 @@ public class DealFragment extends Fragment {
                 // Get the JSON object representing the day
                 JSONObject deal = dealArray.getJSONObject(i);
 
-                resultStrs[i] = deal.getString("title");//+"\n"+deal.getString("body");
+                resultStrs[i] = deal.getString("title")+"\n"+deal.getString("body");
             }
 
             for (String s : resultStrs) {
@@ -145,6 +149,16 @@ public class DealFragment extends Fragment {
             }
             return resultStrs;
 
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+                /*
+                 * This is executed on UI thread before doInBackground(). It is
+                 * the perfect place to show the progress dialog.
+                 */
+            progressDialog = ProgressDialog.show((getActivity()),"", "Loading...");
         }
 
         @Override
@@ -207,6 +221,7 @@ public class DealFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String[] result){
+            progressDialog.dismiss();
             if (result != null){
                 mDealAdapter.clear();
                 for (String dealStr : result){

@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signin"
+    android:background="@drawable/signup"
     android:gravity="center_horizontal"
-    android:id="@+id/signin_screen">
+    android:id="@+id/signup_screen">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,10 +16,10 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/email"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"
-            android:layout_marginTop="160dp"
-            android:hint="Email"/>
+            android:layout_marginTop="93dp"
+            android:hint="Your email"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -27,35 +27,35 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/password"
-            android:layout_centerVertical="true"
+            android:hint="Your password"
+            android:layout_below="@+id/email"
+            android:layout_alignLeft="@+id/email"
+            android:layout_alignStart="@+id/email"
+            android:layout_marginTop="36dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password_repeat"
+            android:hint="Your password again"
+            android:layout_below="@+id/password"
             android:layout_centerHorizontal="true"
-            android:hint="Password"/>
+            android:layout_marginTop="44dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/accent_color"
             android:textColor="@color/white"
-            android:text="Let's travel"
+            android:text="Ready to travel"
             android:id="@+id/button"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="109dp"
             android:padding="20dp"
-            android:onClick="buttonSignIn"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/accent_color"
-            android:textColor="@color/white"
-            android:text="Sign Up"
-            android:id="@+id/button2"
-            android:padding="20dp"
-            android:onClick="buttonSignUp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp" />
+            android:onClick="buttonSignedUp"/>
     </RelativeLayout>
 
 </RelativeLayout>

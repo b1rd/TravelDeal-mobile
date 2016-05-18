@@ -13,4 +13,5 @@
     <string name="action_map">Map Location</string>
     <string name="action_share">Share</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
