@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showPopUpFilter(){
-        String[] items = {"Trains", "Planes", "Buses"};
+        String[] items = {"Planes", "Trains", "Ships", "Wanna know all the news"};
         new AlertDialog.Builder(MainActivity.this)
             .setTitle("I'm interested in")
             // .setMessage("Are you sure you want to delete this entry?")

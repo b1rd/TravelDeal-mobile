@@ -135,8 +135,8 @@ public class DealFragment extends Fragment {
             // current day, we're going to take advantage of that to get a nice
             // normalized UTC date for all of our weather.
 
-            String[] resultStrs = new String[numDays];
-            for(int i = 0; i < numDays; i++) {
+            String[] resultStrs = new String[dealArray.length()];
+            for(int i = 0; i < dealArray.length(); i++) {
                 JSONObject deal = dealArray.getJSONObject(i);
 
                 resultStrs[i] = deal.getString("title")+"\n"+deal.getString("description");
@@ -172,7 +172,8 @@ public class DealFragment extends Fragment {
                 String[] baseUrlArray = {
                         "http://ivanledyaev.com:5000/deals/planes",
                         "http://ivanledyaev.com:5000/deals/trains",
-                        "http://ivanledyaev.com:5000/deals/buses"};
+                        "http://ivanledyaev.com:5000/deals/ships",
+                        "http://ivanledyaev.com:5000/deals"};
                 String baseUrl = "http://ivanledyaev.com:5000/deals";
                 if(args != null) {
                     int value= args.getInt("EXTRA_LINK");
