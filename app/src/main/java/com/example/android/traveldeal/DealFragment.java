@@ -37,6 +37,7 @@ import java.util.ArrayList;
 public class DealFragment extends Fragment {
 
     ArrayAdapter<String> mDealAdapter;
+    ArrayAdapter<String> mDealDetailAdapter;
     private ProgressDialog progressDialog;
 
     public DealFragment() {
@@ -79,6 +80,12 @@ public class DealFragment extends Fragment {
                         R.layout.list_item_deal, // The name of the layout ID.
                         R.id.list_item_deal_textview, // The ID of the textview to populate.
                         new ArrayList<String>());
+        mDealDetailAdapter =
+                new ArrayAdapter<String>(
+                        getActivity(), // The current context (this activity)
+                        R.layout.list_item_deal, // The name of the layout ID.
+                        R.id.list_item_deal_textview, // The ID of the textview to populate.
+                        new ArrayList<String>());
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -88,7 +95,7 @@ public class DealFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String deal = mDealAdapter.getItem(position);
+                String deal = mDealDetailAdapter.getItem(position);
 //                Toast.makeText(getActivity(), deal, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
                         .putExtra(Intent.EXTRA_TEXT, deal);
@@ -118,22 +125,11 @@ public class DealFragment extends Fragment {
 
         private final String LOG_TAG = FetchDealTask.class.getSimpleName();
 
-        private String[] getDealDataFromJson(String dealJsonStr, int numDays)
+        private String[] getDealDataFromJson(String dealJsonStr)
                 throws JSONException {
             JSONObject dealsObject = new JSONObject(dealJsonStr);
 
-            //Get the instance of JSONArray that contains JSONObjects
             JSONArray dealArray = dealsObject.optJSONArray("deals");
-//            JSONArray dealArray = new JSONArray(dealJsonStr);
-//            JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
-
-            // OWM returns daily forecasts based upon the local time of the city that is being
-            // asked for, which means that we need to know the GMT offset to translate this data
-            // properly.
-
-            // Since this data is also sent in-order and the first day is always the
-            // current day, we're going to take advantage of that to get a nice
-            // normalized UTC date for all of our weather.
 
             String[] resultStrs = new String[dealArray.length()];
             for(int i = 0; i < dealArray.length(); i++) {
@@ -222,7 +218,7 @@ public class DealFragment extends Fragment {
                 }
             }
             try {
-                return getDealDataFromJson(dealJsonStr, 7);
+                return getDealDataFromJson(dealJsonStr);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
@@ -237,7 +233,9 @@ public class DealFragment extends Fragment {
             if (result != null){
                 mDealAdapter.clear();
                 for (String dealStr : result){
-                    mDealAdapter.add(dealStr);
+                    String[] parts = dealStr.split("\n");
+                    mDealAdapter.add(parts[0]);
+                    mDealDetailAdapter.add(dealStr);
                 }
             }
         }
