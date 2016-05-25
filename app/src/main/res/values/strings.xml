@@ -13,5 +13,6 @@
     <string name="action_filter">Filter</string>
     <string name="action_share">Share</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
     <string name="sign_up">Sign Up</string>
 </resources>

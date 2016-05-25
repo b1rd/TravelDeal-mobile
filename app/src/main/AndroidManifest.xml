@@ -39,8 +39,7 @@
                 android:value="com.example.android.traveldeal.MainActivity" />
         </activity>
         <activity android:name=".SignInActivity"
-            android:label="@string/sign_in"
-            android:parentActivityName=".MainActivity">
+            android:label="@string/sign_in">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.traveldeal.MainActivity" />
