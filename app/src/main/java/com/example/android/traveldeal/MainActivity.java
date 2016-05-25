@@ -1,12 +1,10 @@
 package com.example.android.traveldeal;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -52,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (id == R.id.action_map){
-            openPrefferedLocationInMap();
+        if (id == R.id.action_filter){
+            // openPrefferedLocationInMap();
+            showPopUpFilter();
             return true;
         }
 
@@ -65,24 +64,53 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void openPrefferedLocationInMap(){
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String location = sharedPrefs.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default)
-        );
-
-        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
-                .appendQueryParameter("q", location)
-                .build();
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(geoLocation);
-
-        if (intent.resolveActivity(getPackageManager()) != null){
-            startActivity(intent);
-        } else {
-            Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed");
-        }
+    private void showPopUpFilter(){
+        String[] items = {"Trains", "Planes", "Buses"};
+        new AlertDialog.Builder(MainActivity.this)
+            .setTitle("I'm interested in")
+            // .setMessage("Are you sure you want to delete this entry?")
+            .setSingleChoiceItems(items, 0, null)
+            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    dialog.dismiss();
+                    int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                    System.out.println(selectedPosition);
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.putExtra("EXTRA_LINK", selectedPosition);
+                    startActivity(intent);
+                    // Do something useful withe the position of the selected radio button
+                }
+            })
+//            .setPositiveButton(, new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    // continue with delete
+//                }
+//            })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+            .show();
     }
+    // private void openPrefferedLocationInMap(){
+    //     SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+    //     String location = sharedPrefs.getString(
+    //             getString(R.string.pref_location_key),
+    //             getString(R.string.pref_location_default)
+    //     );
+
+    //     Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
+    //             .appendQueryParameter("q", location)
+    //             .build();
+
+    //     Intent intent = new Intent(Intent.ACTION_VIEW);
+    //     intent.setData(geoLocation);
+
+    //     if (intent.resolveActivity(getPackageManager()) != null){
+    //         startActivity(intent);
+    //     } else {
+    //         Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed");
+    //     }
+    // }
 }

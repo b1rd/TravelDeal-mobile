@@ -10,7 +10,7 @@
     <string name="pref_location_default">94043</string>
     <string name="pref_feature_id">notificatons</string>
     <string name="pref_feature_title">Notifications</string>
-    <string name="action_map">Map Location</string>
+    <string name="action_filter">Filter</string>
     <string name="action_share">Share</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>

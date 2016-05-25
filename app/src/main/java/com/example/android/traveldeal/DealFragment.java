@@ -46,6 +46,7 @@ public class DealFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -86,7 +87,7 @@ public class DealFragment extends Fragment {
         listView.setAdapter(mDealAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String deal = mDealAdapter.getItem(position);
 //                Toast.makeText(getActivity(), deal, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
@@ -166,7 +167,20 @@ public class DealFragment extends Fragment {
             String dealJsonStr = null;
 
             try {
+                Bundle args = getActivity().getIntent().getExtras();
+
+                String[] baseUrlArray = {
+                        "http://ivanledyaev.com:5000/deals/planes",
+                        "http://ivanledyaev.com:5000/deals/trains",
+                        "http://ivanledyaev.com:5000/deals/buses"};
                 String baseUrl = "http://ivanledyaev.com:5000/deals";
+                if(args != null) {
+                    int value= args.getInt("EXTRA_LINK");
+                    System.out.println("hooray!");
+                    System.out.println(value);
+                    baseUrl = baseUrlArray[value];
+                }
+
                 URL url = new URL(baseUrl);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
