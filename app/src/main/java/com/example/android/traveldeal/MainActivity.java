@@ -81,36 +81,11 @@ public class MainActivity extends AppCompatActivity {
                     // Do something useful withe the position of the selected radio button
                 }
             })
-//            .setPositiveButton(, new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    // continue with delete
-//                }
-//            })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
+            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // do nothing
+                }
+            })
             .show();
     }
-    // private void openPrefferedLocationInMap(){
-    //     SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    //     String location = sharedPrefs.getString(
-    //             getString(R.string.pref_location_key),
-    //             getString(R.string.pref_location_default)
-    //     );
-
-    //     Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
-    //             .appendQueryParameter("q", location)
-    //             .build();
-
-    //     Intent intent = new Intent(Intent.ACTION_VIEW);
-    //     intent.setData(geoLocation);
-
-    //     if (intent.resolveActivity(getPackageManager()) != null){
-    //         startActivity(intent);
-    //     } else {
-    //         Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed");
-    //     }
-    // }
 }
