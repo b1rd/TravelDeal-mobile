@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_signin) {
             startActivity(new Intent(this, SignInActivity.class));
+            finish();
             return true;
         }
 
